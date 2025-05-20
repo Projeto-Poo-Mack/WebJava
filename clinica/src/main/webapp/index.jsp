@@ -20,7 +20,31 @@
 
         <button type="submit">Entrar</button>
     </form>
+
+    <%-- Exibe a mensagem de erro se o parâmetro ?erro=login estiver presente --%>
+    <%
+        String erro = request.getParameter("erro");
+        if ("login".equals(erro)) {
+    %>
+        <p id="msgErro" style="color: red; font-weight: bold; margin-top: 10px;">
+            E-mail ou senha inválidos. Tente novamente.
+        </p>
+    <%
+        }
+    %>
 </div>
+
+<%-- Script para remover o parâmetro ?erro=login da URL sem recarregar a página --%>
+<script>
+    (function() {
+        const url = new URL(window.location);
+        if (url.searchParams.get('erro') === 'login') {
+            // Remove o parâmetro 'erro' da URL
+            url.searchParams.delete('erro');
+            window.history.replaceState(null, '', url.toString());
+        }
+    })();
+</script>
 
 </body>
 </html>
