@@ -13,7 +13,7 @@
     <div class="navbar">
         <div class="nav-links">
             <a href="admin_dashboard">Home</a>
-            <a href="#">Cadastro de Pacientes</a>
+            <a href="pacientes">Cadastro de Pacientes</a>
             <a href="#">Cadastro de Médicos</a>
             <a href="#">Consultar Agenda</a>
             <a href="#">Ficha Clínica</a>
