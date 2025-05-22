@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head><title>Cadastrar Paciente</title></head>
+<head>
+    <title>Cadastrar Paciente</title></head>
+    <link rel="stylesheet" href="/css/style.css">
+
 <body>
     <h2>Cadastrar Paciente</h2>
-    <form action="pacientes" method="post">
+    <form action="${pageContext.request.contextPath}/pacientes" method="post">
         <input type="hidden" name="action" value="cadastrar" />
         Nome: <input type="text" name="nome" required /><br/>
         Email: <input type="email" name="email" required /><br/>

@@ -3,30 +3,39 @@ package com.mack.clinica.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.mack.clinica.model.Paciente;
 import com.mack.clinica.model.PacienteDAO;
 import com.mack.clinica.model.Usuario;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
 @WebServlet("/pacientes")
 public class PacienteCrudServlet extends HttpServlet {
 
-    // Listagem de pacientes (GET)
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String realPathBase = getServletContext().getRealPath("/");
-        List<Usuario> pacientes = new PacienteDAO().listarPacientes(realPathBase);
-        request.setAttribute("pacientes", pacientes);
-        request.getRequestDispatcher("/listar_pacientes.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        PacienteDAO pacienteDAO = new PacienteDAO();
+
+        if ("editar".equals(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Paciente paciente = pacienteDAO.buscarPacientePorId(id, realPathBase);
+            request.setAttribute("paciente", paciente);
+            request.getRequestDispatcher("/editar_paciente.jsp").forward(request, response);
+        } else {
+            List<Usuario> pacientes = pacienteDAO.listarPacientes(realPathBase);
+            request.setAttribute("pacientes", pacientes);
+            request.getRequestDispatcher("/listar_pacientes.jsp").forward(request, response);
+        }
     }
 
-    // Cadastro, edição e exclusão de pacientes (POST)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
