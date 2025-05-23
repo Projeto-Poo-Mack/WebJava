@@ -10,7 +10,10 @@
         <input type="hidden" name="action" value="cadastrar" />
         Nome: <input type="text" name="nome" required /><br/>
         Email: <input type="email" name="email" required /><br/>
+        cpf: <input type="text" name="cpf" required /><br/>
+        celular: <input type="text" name="celular" required /><br/>
         Senha: <input type="password" name="senha" required /><br/>
+
         <input type="submit" value="Cadastrar" />
     </form>
     <a href="pacientes">Voltar</a>

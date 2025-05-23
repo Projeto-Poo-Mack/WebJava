@@ -2,14 +2,11 @@
 <%@ page import="com.mack.clinica.model.Paciente" %>
 <%
     Paciente paciente = (Paciente) request.getAttribute("paciente");
+    if (paciente != null) {
 %>
 <html>
 <head><title>Editar Paciente</title></head>
 <body>
-<% if (paciente == null) { %>
-    <p style="color:red;">Paciente não encontrado.</p>
-    <a href="pacientes">Voltar</a>
-<% } else { %>
     <h2>Editar Paciente</h2>
     <form action="pacientes" method="post">
         <input type="hidden" name="action" value="editar" />
@@ -19,7 +16,13 @@
         Senha: <input type="password" name="senha" value="<%= paciente.getSenha() %>" required /><br/>
         <input type="submit" value="Salvar" />
     </form>
+<%
+} else {
+%>
+    <p>Paciente não encontrado.</p>
+<%
+}
+%>
     <a href="pacientes">Voltar</a>
-<% } %>
 </body>
 </html>

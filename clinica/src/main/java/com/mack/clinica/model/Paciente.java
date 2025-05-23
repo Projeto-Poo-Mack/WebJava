@@ -3,8 +3,11 @@ package com.mack.clinica.model;
 public class Paciente extends Usuario {
     private String email;
     private String senha;
+    
 
-    public Paciente(String nome, String email, String senha) {
+    public Paciente(String nome, String email, String senha, String cpf, String celular) {
+        super.setCpf(cpf);
+        super.setCelular(celular);
         super.setNome(nome);
         this.email = email;
         this.senha = senha;

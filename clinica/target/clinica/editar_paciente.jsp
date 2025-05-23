@@ -6,6 +6,10 @@
 <html>
 <head><title>Editar Paciente</title></head>
 <body>
+<% if (paciente == null) { %>
+    <p style="color:red;">Paciente não encontrado.</p>
+    <a href="pacientes">Voltar</a>
+<% } else { %>
     <h2>Editar Paciente</h2>
     <form action="pacientes" method="post">
         <input type="hidden" name="action" value="editar" />
@@ -16,5 +20,6 @@
         <input type="submit" value="Salvar" />
     </form>
     <a href="pacientes">Voltar</a>
+<% } %>
 </body>
 </html>

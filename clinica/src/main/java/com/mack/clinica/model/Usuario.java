@@ -6,7 +6,10 @@ package com.mack.clinica.model;
 public class Usuario {
     private int id;
     private String nome;
-    private String tipo; // paciente ou admin
+    private String tipo; 
+    private String cpf;// paciente ou admin
+    private String celular;
+
 
     // Getters e Setters
     public int getId() {
@@ -31,5 +34,21 @@ public class Usuario {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String  cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 }

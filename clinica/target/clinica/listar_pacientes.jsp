@@ -2,7 +2,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.mack.clinica.model.Usuario" %>
 <html>
-<head><title>Lista de Pacientes</title></head>
+<head>
+    <title>Lista de Pacientes</title></head>
+    <link rel="stylesheet" href="/css/style.css">
 <body>
     <h2>Pacientes</h2>
     <a href="cadastrar_paciente.jsp">Novo Paciente</a>

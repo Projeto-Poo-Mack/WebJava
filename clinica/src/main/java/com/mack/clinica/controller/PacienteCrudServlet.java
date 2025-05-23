@@ -47,7 +47,9 @@ public class PacienteCrudServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            Paciente paciente = new Paciente(nome, email, senha);
+            String cpf =  request.getParameter("cpf");
+            String celular = request.getParameter("celular");
+            Paciente paciente = new Paciente(nome, email, senha, cpf, celular);
             pacienteDAO.cadastrarPaciente(paciente, realPathBase);
             response.sendRedirect("pacientes");
         } else if ("editar".equals(action)) {
@@ -55,7 +57,9 @@ public class PacienteCrudServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            Paciente paciente = new Paciente(nome, email, senha);
+            String cpf = request.getParameter("cpf");
+            String celular = request.getParameter("celular");
+            Paciente paciente = new Paciente(nome, email, senha, cpf ,celular);
             paciente.setId(id);
             pacienteDAO.editarPaciente(paciente, realPathBase);
             response.sendRedirect("pacientes");

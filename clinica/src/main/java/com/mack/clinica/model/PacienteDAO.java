@@ -14,13 +14,16 @@ public class PacienteDAO {
 
     public void cadastrarPaciente(Paciente paciente, String realPathBase) {
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "INSERT INTO usuarios (nome, email, senha, tipo) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO usuarios (nome, email, senha, tipo, cpf , celular) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, paciente.getNome());
             stmt.setString(2, paciente.getEmail());
             stmt.setString(3, paciente.getSenha());
             stmt.setString(4, paciente.getTipo());
-
+            stmt.setString(5, paciente.getCpf());
+            stmt.setString(6, paciente.getCelular());
+            
+            
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,12 +33,16 @@ public class PacienteDAO {
 
     public void editarPaciente(Paciente paciente, String realPathBase){
         try(Connection conn = DatabaseConnection.getConnection(realPathBase)){
-            String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?";
+            String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ? , WHERE id = ?, cpf = ?, celular = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);   
             stmt.setString(1, paciente.getNome());
             stmt.setString(2, paciente.getEmail());
             stmt.setString(3, paciente.getSenha());
             stmt.setInt(4, paciente.getId());
+            stmt.setString(5, paciente.getCpf());
+            stmt.setString(6, paciente.getCelular());
+
+
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,7 +89,7 @@ public class PacienteDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                paciente = new Paciente(rs.getString("nome"), rs.getString("email"), rs.getString("senha"));
+                paciente = new Paciente(rs.getString("nome"), rs.getString("email"), rs.getString("senha"), rs.getString("cpf"), rs.getString("celular"));
                 paciente.setId(rs.getInt("id"));
                 paciente.setTipo(rs.getString("tipo"));
             }
