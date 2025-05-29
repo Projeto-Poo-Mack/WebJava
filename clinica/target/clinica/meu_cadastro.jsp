@@ -78,7 +78,7 @@
                 <div class="profile-value"><%= paciente.getCpf() %></div>
                 
                 <div class="profile-label">Telefone:</div>
-                <div class="profile-value"><%= paciente.getCelular() %></div>
+                <div class="profile-value"><%= paciente.getCelular().replaceAll("\\.0$", "") %></div>
             </div>
             
             <div style="text-align: center;">

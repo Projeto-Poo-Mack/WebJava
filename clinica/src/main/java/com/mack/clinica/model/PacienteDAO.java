@@ -39,7 +39,7 @@ public class PacienteDAO {
             stmt.setString(2, paciente.getEmail());
             stmt.setString(3, paciente.getSenha());
             stmt.setString(4, paciente.getCpf());
-            stmt.setString(5, paciente.getCelular());
+            stmt.setString(5, paciente.getCelular().replaceAll("\\.0$", ""));
             stmt.setInt(6, paciente.getId());
 
             stmt.executeUpdate();

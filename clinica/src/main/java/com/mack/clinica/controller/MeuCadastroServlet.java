@@ -76,7 +76,7 @@ public class MeuCadastroServlet extends HttpServlet {
             } else if (cpf.length() != 11) {
                 errorMessage = "O CPF deve conter exatamente 11 dígitos numéricos";
             } else if (celular.length() != 11) {
-                errorMessage = "O telefone deve conter exatamente 11 dígitos (DDD + número)";
+                errorMessage = "O telefone deve conter exatamente 11 dígitos (DDD + número com 9)";
             }
             
             if (errorMessage != null) {

@@ -121,7 +121,7 @@
                     <label for="celular">Telefone:</label>
                     <input type="tel" id="celular" name="celular" value="<%= paciente.getCelular() %>" required 
                            pattern="\d{11}" maxlength="11" oninput="validatePhone(this)">
-                    <div id="phoneError" class="error-message">O telefone deve conter exatamente 11 dígitos (DDD + número)</div>
+                    <div id="phoneError" class="error-message">O telefone deve conter exatamente 11 dígitos (DDD + número com 9)</div>
                 </div>
                 
                 <div class="form-group">
