@@ -2,10 +2,12 @@ com\mack\clinica\model\Paciente.class
 com\mack\clinica\controller\AdminDashboardServlet.class
 com\mack\clinica\controller\LoginServlet.class
 com\mack\clinica\controller\PacienteDashboardServlet.class
+com\mack\clinica\controller\ConsultarAgendaServlet.class
 com\mack\clinica\controller\LogoutServlet.class
 com\mack\clinica\controller\PacienteCrudServlet.class
 com\mack\clinica\controller\LoginActionServlet.class
 com\mack\clinica\model\AgendarConsultaDAO.class
+com\mack\clinica\model\AgendarConsultaDAO$Consulta.class
 com\mack\clinica\model\Medico.class
 com\mack\clinica\model\PacienteDAO.class
 com\mack\clinica\model\UsuarioDAO.class

@@ -12,10 +12,10 @@
     <!-- Menu de Navegação -->
     <div class="navbar">
         <div class="nav-links">
-            <a href="admin_dashboard">Home</a>
+            <a href="admin_dashboard" class="active">Home</a>
             <a href="pacientes">Cadastro de Pacientes</a>
             <a href="medico">Cadastro de Médicos</a>
-            <a href="#">Consultar Agenda</a>
+            <a href="consultarAgenda">Consultar Agenda</a>
             <a href="#">Ficha Clínica</a>
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>

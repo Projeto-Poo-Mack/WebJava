@@ -26,7 +26,8 @@
                     <input type="hidden" name="id" value="<%= p.getId() %>" />
                     <input type="submit" value="Excluir" onclick="return confirm('Tem certeza?');" />
                 </form>
-                <form action="editar_paciente.jsp" method="get" style="display:inline;">
+                <form action="pacientes" method="get" style="display:inline;">
+                    <input type="hidden" name="action" value="editar" />
                     <input type="hidden" name="id" value="<%= p.getId() %>" />
                     <input type="submit" value="Editar" />
                 </form>
