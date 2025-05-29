@@ -1,4 +1,5 @@
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\model\Paciente.java
+C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\controller\FichaClinicaServlet.java
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\controller\PacienteCrudServlet.java
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\model\PacienteDAO.java
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\controller\LogoutServlet.java
@@ -16,3 +17,4 @@ C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\model\AgendarConsu
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\controller\AdminDashboardServlet.java
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\util\DatabaseConnection.java
 C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\controller\MeuCadastroServlet.java
+C:\Users\kenfe\WebJava\clinica\src\main\java\com\mack\clinica\model\FichaClinica.java
