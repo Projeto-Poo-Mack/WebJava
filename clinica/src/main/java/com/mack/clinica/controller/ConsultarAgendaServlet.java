@@ -24,8 +24,8 @@ public class ConsultarAgendaServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String userType = (String) session.getAttribute("tipo");
         
-        // Verifica se o usuário é administrador
-        if (!"admin".equals(userType)) {
+        // Verifica se o usuário é administrador ou médico
+        if (!"admin".equals(userType) && !"medico".equals(userType)) {
             response.sendRedirect("index.jsp");
             return;
         }
@@ -37,8 +37,15 @@ public class ConsultarAgendaServlet extends HttpServlet {
         String realPathBase = request.getServletContext().getRealPath("/");
         AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
         
-        List<Consulta> consultas = dao.listarConsultas(paciente, medico, data);
-        request.setAttribute("consultas", consultas);
+        // Se for médico, filtra apenas suas consultas
+        if ("medico".equals(userType)) {
+            int medicoId = (int) session.getAttribute("id");
+            List<Consulta> consultas = dao.listarConsultasPorMedico(medicoId, data);
+            request.setAttribute("consultas", consultas);
+        } else {
+            List<Consulta> consultas = dao.listarConsultas(paciente, medico, data);
+            request.setAttribute("consultas", consultas);
+        }
         
         // Mantém os filtros na página
         request.setAttribute("filtro_paciente", paciente);

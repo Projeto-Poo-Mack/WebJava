@@ -87,9 +87,9 @@
                 </thead>
                 <tbody>
                     <%
-                    List<Consulta> consultas = (List<Consulta>) request.getAttribute("consultas");
-                    if (consultas != null && !consultas.isEmpty()) {
-                        for (Consulta consulta : consultas) {
+                        List<Consulta> consultas = (List<Consulta>) request.getAttribute("consultas");
+                        if (consultas != null && !consultas.isEmpty()) {
+                            for (Consulta consulta : consultas) {
                     %>
                         <tr>
                             <td><%= consulta.getDataHora() %></td>
@@ -102,8 +102,8 @@
                             <td><%= consulta.getObservacoes() != null ? consulta.getObservacoes() : "" %></td>
                         </tr>
                     <%
-                        }
-                    } else {
+                            }
+                        } else {
                     %>
                         <tr>
                             <td colspan="4" class="empty-message">
@@ -111,7 +111,7 @@
                             </td>
                         </tr>
                     <%
-                    }
+                        }
                     %>
                 </tbody>
             </table>

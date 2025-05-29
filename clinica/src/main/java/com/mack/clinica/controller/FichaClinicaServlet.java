@@ -20,8 +20,8 @@ public class FichaClinicaServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String userType = (String) session.getAttribute("tipo");
         
-        // Verifica se o usuário é administrador
-        if (!"admin".equals(userType)) {
+        // Verifica se o usuário é administrador ou médico
+        if (!"admin".equals(userType) && !"medico".equals(userType)) {
             response.sendRedirect("index.jsp");
             return;
         }

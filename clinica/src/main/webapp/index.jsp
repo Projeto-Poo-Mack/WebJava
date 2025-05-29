@@ -6,6 +6,24 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <style>
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .register-link a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,26 +39,37 @@
         <button type="submit">Entrar</button>
     </form>
 
-    <%-- Exibe a mensagem de erro se o parâmetro ?erro=login estiver presente --%>
+    <div class="register-link">
+        Não tem uma conta? <a href="register.jsp">Cadastre-se</a>
+    </div>
+
     <%
         String erro = request.getParameter("erro");
+        String sucesso = request.getParameter("sucesso");
+        
         if ("login".equals(erro)) {
     %>
         <p id="msgErro" style="color: red; font-weight: bold; margin-top: 10px;">
             E-mail ou senha inválidos. Tente novamente.
         </p>
     <%
+        } else if ("cadastro".equals(sucesso)) {
+    %>
+        <p class="success-message">
+            Cadastro realizado com sucesso! Faça login para continuar.
+        </p>
+    <%
         }
     %>
 </div>
 
-<%-- Script para remover o parâmetro ?erro=login da URL sem recarregar a página --%>
 <script>
     (function() {
         const url = new URL(window.location);
-        if (url.searchParams.get('erro') === 'login') {
-            // Remove o parâmetro 'erro' da URL
+        if (url.searchParams.get('erro') === 'login' || url.searchParams.get('sucesso') === 'cadastro') {
+            // Remove os parâmetros da URL
             url.searchParams.delete('erro');
+            url.searchParams.delete('sucesso');
             window.history.replaceState(null, '', url.toString());
         }
     })();

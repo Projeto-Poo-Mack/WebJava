@@ -40,4 +40,27 @@ public class UsuarioDAO {
         }
         return null;
     }
+
+    /**
+     * Cadastra um novo usuário no banco de dados.
+     * @param usuario Objeto Usuario com os dados do novo usuário.
+     * @param realPathBase Caminho real da aplicação para localizar o banco.
+     */
+    public static void cadastrarUsuario(Usuario usuario, String realPathBase) {
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+            String sql = "INSERT INTO usuarios (nome, email, senha, tipo, cpf, celular) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getTipo());
+            stmt.setString(5, usuario.getCpf());
+            stmt.setString(6, usuario.getCelular());
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao cadastrar usuário no banco de dados.", e);
+        }
+    }
 }

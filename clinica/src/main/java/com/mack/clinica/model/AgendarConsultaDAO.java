@@ -81,36 +81,75 @@ public class AgendarConsultaDAO {
 
     public List<Consulta> listarConsultas(String paciente, String medico, String data) {
         List<Consulta> consultas = new ArrayList<>();
-        StringBuilder sql = new StringBuilder(
-            "SELECT c.id, p.nome as paciente_nome, m.nome as medico_nome, " +
-            "c.data_hora, c.status, c.observacoes " +
-            "FROM consultas c " +
-            "JOIN usuarios p ON c.paciente_id = p.id " +
-            "JOIN usuarios m ON c.profissional_id = m.id " +
-            "WHERE 1=1"
-        );
-        List<Object> params = new ArrayList<>();
+        String sql = "SELECT c.id, p.nome as paciente_nome, m.nome as medico_nome, c.data_hora, c.status, c.observacoes " +
+                    "FROM consultas c " +
+                    "JOIN usuarios p ON c.paciente_id = p.id " +
+                    "JOIN usuarios m ON c.profissional_id = m.id " +
+                    "WHERE 1=1 ";
 
-        if (paciente != null && !paciente.trim().isEmpty()) {
-            sql.append(" AND LOWER(p.nome) LIKE LOWER(?)");
-            params.add("%" + paciente + "%");
+        if (paciente != null && !paciente.isEmpty()) {
+            sql += "AND p.nome LIKE ? ";
         }
-        if (medico != null && !medico.trim().isEmpty()) {
-            sql.append(" AND LOWER(m.nome) LIKE LOWER(?)");
-            params.add("%" + medico + "%");
+        if (medico != null && !medico.isEmpty()) {
+            sql += "AND m.nome LIKE ? ";
         }
-        if (data != null && !data.trim().isEmpty()) {
-            sql.append(" AND DATE(data_hora) = ?");
-            params.add(data);
+        if (data != null && !data.isEmpty()) {
+            sql += "AND DATE(c.data_hora) = ? ";
         }
 
-        sql.append(" ORDER BY c.data_hora DESC");
+        sql += "ORDER BY c.data_hora";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-            
-            for (int i = 0; i < params.size(); i++) {
-                stmt.setObject(i + 1, params.get(i));
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            int paramIndex = 1;
+            if (paciente != null && !paciente.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + paciente + "%");
+            }
+            if (medico != null && !medico.isEmpty()) {
+                stmt.setString(paramIndex++, "%" + medico + "%");
+            }
+            if (data != null && !data.isEmpty()) {
+                stmt.setString(paramIndex, data);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setPacienteNome(rs.getString("paciente_nome"));
+                consulta.setMedicoNome(rs.getString("medico_nome"));
+                consulta.setDataHora(rs.getString("data_hora"));
+                consulta.setStatus(rs.getString("status"));
+                consulta.setObservacoes(rs.getString("observacoes"));
+                consultas.add(consulta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return consultas;
+    }
+
+    public List<Consulta> listarConsultasPorMedico(int medicoId, String data) {
+        List<Consulta> consultas = new ArrayList<>();
+        String sql = "SELECT c.id, p.nome as paciente_nome, m.nome as medico_nome, c.data_hora, c.status, c.observacoes " +
+                    "FROM consultas c " +
+                    "JOIN usuarios p ON c.paciente_id = p.id " +
+                    "JOIN usuarios m ON c.profissional_id = m.id " +
+                    "WHERE c.profissional_id = ? ";
+
+        if (data != null && !data.isEmpty()) {
+            sql += "AND DATE(c.data_hora) = ? ";
+        }
+
+        sql += "ORDER BY c.data_hora";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, medicoId);
+            if (data != null && !data.isEmpty()) {
+                stmt.setString(2, data);
             }
 
             ResultSet rs = stmt.executeQuery();
@@ -132,21 +171,19 @@ public class AgendarConsultaDAO {
 
     public List<Consulta> listarConsultasPorPaciente(int pacienteId) {
         List<Consulta> consultas = new ArrayList<>();
-        String sql = 
-            "SELECT c.id, p.nome as paciente_nome, m.nome as medico_nome, " +
-            "c.data_hora, c.status, c.observacoes " +
-            "FROM consultas c " +
-            "JOIN usuarios p ON c.paciente_id = p.id " +
-            "JOIN usuarios m ON c.profissional_id = m.id " +
-            "WHERE c.paciente_id = ? " +
-            "ORDER BY c.data_hora DESC";
+        String sql = "SELECT c.id, p.nome as paciente_nome, m.nome as medico_nome, c.data_hora, c.status, c.observacoes " +
+                    "FROM consultas c " +
+                    "JOIN usuarios p ON c.paciente_id = p.id " +
+                    "JOIN usuarios m ON c.profissional_id = m.id " +
+                    "WHERE c.paciente_id = ? " +
+                    "ORDER BY c.data_hora";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+
             stmt.setInt(1, pacienteId);
+
             ResultSet rs = stmt.executeQuery();
-            
             while (rs.next()) {
                 Consulta consulta = new Consulta();
                 consulta.setId(rs.getInt("id"));

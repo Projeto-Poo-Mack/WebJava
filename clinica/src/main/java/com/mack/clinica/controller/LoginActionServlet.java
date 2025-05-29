@@ -1,9 +1,14 @@
 package com.mack.clinica.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.mack.clinica.model.Usuario;
 import com.mack.clinica.model.UsuarioDAO;
+import com.mack.clinica.util.DatabaseConnection;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,11 +45,43 @@ public class LoginActionServlet extends HttpServlet {
                 response.sendRedirect("admin_dashboard");
             } else if ("paciente".equalsIgnoreCase(usuario.getTipo())) {
                 response.sendRedirect("paciente_dashboard");
+            } else if ("medico".equalsIgnoreCase(usuario.getTipo())) {
+                response.sendRedirect("medico_dashboard");
             } else {
                 response.sendRedirect("index.jsp?erro=tipo");
             }
         } else {
             response.sendRedirect("index.jsp?erro=login");
         }
+    }
+
+    private boolean emailJaExiste(String email, String realPathBase) {
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+            String sql = "SELECT COUNT(*) FROM usuarios WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean cpfJaExiste(String cpf, String realPathBase) {
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+            String sql = "SELECT COUNT(*) FROM usuarios WHERE cpf = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

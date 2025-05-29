@@ -8,7 +8,9 @@ com\mack\clinica\controller\ConsultarAgendaServlet.class
 com\mack\clinica\controller\LogoutServlet.class
 com\mack\clinica\controller\PacienteCrudServlet.class
 com\mack\clinica\controller\LoginActionServlet.class
+com\mack\clinica\controller\RegisterActionServlet.class
 com\mack\clinica\model\AgendarConsultaDAO.class
+com\mack\clinica\controller\MedicoDashboardServlet.class
 com\mack\clinica\model\AgendarConsultaDAO$Consulta.class
 com\mack\clinica\model\Medico.class
 com\mack\clinica\model\PacienteDAO.class
