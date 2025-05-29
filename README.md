@@ -125,9 +125,3 @@ mvn clean install
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
-
-## Suporte
-Para suporte, envie um email para [EMAIL_DE_SUPORTE] ou abra uma issue no repositório.
-
-## Licença
-Este projeto está sob a licença [TIPO_DE_LICENÇA]. Veja o arquivo `LICENSE` para mais detalhes.
