@@ -33,15 +33,14 @@ public class PacienteDAO {
 
     public void editarPaciente(Paciente paciente, String realPathBase){
         try(Connection conn = DatabaseConnection.getConnection(realPathBase)){
-            String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ? , WHERE id = ?, cpf = ?, celular = ?";
+            String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ?, cpf = ?, celular = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);   
             stmt.setString(1, paciente.getNome());
             stmt.setString(2, paciente.getEmail());
             stmt.setString(3, paciente.getSenha());
-            stmt.setInt(4, paciente.getId());
-            stmt.setString(5, paciente.getCpf());
-            stmt.setString(6, paciente.getCelular());
-
+            stmt.setString(4, paciente.getCpf());
+            stmt.setString(5, paciente.getCelular());
+            stmt.setInt(6, paciente.getId());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
