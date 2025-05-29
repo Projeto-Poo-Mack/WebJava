@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Desenvolver um sistema web baseado em Java com Servlets, JSP e HTML/CSS, utilizando o,
+modelo de arquitetura MVC.
+Aplicar os princípios da Programação Orientada a Objetos (POO).,
+Utilizar o SQLite como banco de dados relacional para persistência de informações.,
+Implementar controle de sessão, validação de usuários e o uso de rotas protegidas com,
+HttpSession. 
+Você trabalhará com o banco db.db, que já contém usuários cadastrados. Abaixo está a estrutura básica de
+tabelas:
+Tabela 'usuarios':
+id, nome, email, cpf, celular, tipo (paciente, admin, médico), senha,created_at
+Tabela 'consultas':
+id, paciente_id, profissional_id, data_hora, status, observacoes
+Tabela 'prontuarios' (Ficha Clínica):
+
+id, paciente_id, profissional_id, data, anotacoes_medicas, prescricoes

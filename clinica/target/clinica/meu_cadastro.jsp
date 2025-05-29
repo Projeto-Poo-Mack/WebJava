@@ -82,7 +82,7 @@
             </div>
             
             <div style="text-align: center;">
-                <a href="#" class="edit-button">Editar Cadastro</a>
+                <a href="meu-cadastro?action=editar" class="edit-button">Editar Cadastro</a>
             </div>
         <%
             } else {

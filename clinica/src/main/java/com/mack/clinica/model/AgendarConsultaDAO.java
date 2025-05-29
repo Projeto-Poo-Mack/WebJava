@@ -129,4 +129,37 @@ public class AgendarConsultaDAO {
         }
         return consultas;
     }
+
+    public List<Consulta> listarConsultasPorPaciente(int pacienteId) {
+        List<Consulta> consultas = new ArrayList<>();
+        String sql = 
+            "SELECT c.id, p.nome as paciente_nome, m.nome as medico_nome, " +
+            "c.data_hora, c.status, c.observacoes " +
+            "FROM consultas c " +
+            "JOIN usuarios p ON c.paciente_id = p.id " +
+            "JOIN usuarios m ON c.profissional_id = m.id " +
+            "WHERE c.paciente_id = ? " +
+            "ORDER BY c.data_hora DESC";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, pacienteId);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setPacienteNome(rs.getString("paciente_nome"));
+                consulta.setMedicoNome(rs.getString("medico_nome"));
+                consulta.setDataHora(rs.getString("data_hora"));
+                consulta.setStatus(rs.getString("status"));
+                consulta.setObservacoes(rs.getString("observacoes"));
+                consultas.add(consulta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return consultas;
+    }
 }
