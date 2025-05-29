@@ -129,6 +129,12 @@
                     <input type="password" id="senha" name="senha">
                 </div>
                 
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Nova Senha:</label>
+                    <input type="password" id="confirmarSenha" name="confirmarSenha">
+                    <div id="senhaError" class="error-message">As senhas não coincidem</div>
+                </div>
+                
                 <div class="form-buttons">
                     <button type="submit" class="button">Salvar Alterações</button>
                     <a href="meu-cadastro" class="button secondary">Cancelar</a>
@@ -190,12 +196,42 @@
             }
         }
 
+        function validatePasswords() {
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmarSenha').value;
+            const errorElement = document.getElementById('senhaError');
+            
+            // Se ambos os campos estiverem vazios, está ok (mantém a senha atual)
+            if (senha === '' && confirmarSenha === '') {
+                errorElement.style.display = 'none';
+                return true;
+            }
+            
+            // Se apenas um dos campos estiver preenchido, mostra erro
+            if ((senha === '' && confirmarSenha !== '') || (senha !== '' && confirmarSenha === '')) {
+                errorElement.textContent = 'Preencha ambos os campos de senha';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            // Se as senhas não coincidirem, mostra erro
+            if (senha !== confirmarSenha) {
+                errorElement.textContent = 'As senhas não coincidem';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            errorElement.style.display = 'none';
+            return true;
+        }
+
         function validateForm() {
             const nameValid = validateName(document.getElementById('nome'));
             const cpfValid = validateCPF(document.getElementById('cpf'));
             const phoneValid = validatePhone(document.getElementById('celular'));
+            const passwordsValid = validatePasswords();
             
-            return nameValid && cpfValid && phoneValid;
+            return nameValid && cpfValid && phoneValid && passwordsValid;
         }
     </script>
 </body>

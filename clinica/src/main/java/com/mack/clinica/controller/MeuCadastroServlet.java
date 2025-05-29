@@ -66,10 +66,11 @@ public class MeuCadastroServlet extends HttpServlet {
             String nome = request.getParameter("nome");
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
+            String confirmarSenha = request.getParameter("confirmarSenha");
             String cpf = request.getParameter("cpf").replaceAll("\\D", "");
             String celular = request.getParameter("celular").replaceAll("\\D", "");
             
-            // Validação do nome, CPF e telefone
+            // Validação do nome, CPF, telefone e senha
             String errorMessage = null;
             if (!nome.matches("[A-Za-zÀ-ÿ\\s]+")) {
                 errorMessage = "O nome deve conter apenas letras e espaços";
@@ -77,6 +78,8 @@ public class MeuCadastroServlet extends HttpServlet {
                 errorMessage = "O CPF deve conter exatamente 11 dígitos numéricos";
             } else if (celular.length() != 11) {
                 errorMessage = "O telefone deve conter exatamente 11 dígitos (DDD + número com 9)";
+            } else if (!senha.isEmpty() && !senha.equals(confirmarSenha)) {
+                errorMessage = "As senhas não coincidem";
             }
             
             if (errorMessage != null) {
