@@ -110,6 +110,31 @@
             color: #c9244b;
         }
         
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .dashboard-welcome {
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .dashboard-welcome h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-welcome p {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
         @media (max-width: 768px) {
             .form-buttons {
                 flex-direction: column;
@@ -124,20 +149,89 @@
 </head>
 <body>
     <!-- Menu de Navegação -->
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="paciente_dashboard">Home</a>
-            <a href="agendarConsulta">Agendamento de Consultas</a>
-            <a href="minhaAgenda">Minha Agenda</a>
-            <a href="meu-cadastro" class="active">Meu Cadastro</a>
-            <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span>Clínica</span>
+            </div>
+            <nav class="navbar-links">
+                <a href="paciente_dashboard">Home</a>
+                <a href="agendarConsulta">Agendamento de Consultas</a>
+                <a href="minhaAgenda">Minha Agenda</a>
+                <a href="meu-cadastro" class="active">Meu Cadastro</a>
+                <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
+            </nav>
         </div>
-    </div>
+    </header>
+    <style>
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            padding: 0 32px;
+            font-family: 'Inter', Arial, sans-serif;
+            margin-bottom: 2rem;
+        }
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .navbar-logo span {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2d7ff9;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 32px;
+        }
+        .navbar-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .navbar-links a:hover,
+        .navbar-links a.active {
+            color: #2d7ff9;
+            border-bottom: 2px solid #2d7ff9;
+        }
+        .navbar-links .logout {
+            color: #fff;
+            background: #2d7ff9;
+            border-radius: 4px;
+            padding: 8px 16px;
+            margin-left: 16px;
+            transition: background 0.2s;
+        }
+        .navbar-links .logout:hover {
+            background: #1a5fcc;
+        }
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                height: auto;
+                padding: 16px 0;
+            }
+            .navbar-links {
+                flex-direction: column;
+                gap: 16px;
+                width: 100%;
+                align-items: flex-end;
+            }
+        }
+    </style>
 
     <div class="content fade-in">
-        <div class="page-header">
+        <div class="dashboard-welcome">
             <h1>Editar Meu Cadastro</h1>
-            <p>Atualize suas informações pessoais</p>
+            <p>Atualize suas informações pessoais para manter seu cadastro sempre atualizado</p>
         </div>
         
         <%
@@ -177,8 +271,8 @@
                     <label for="cpf">CPF:</label>
                     <input type="text" id="cpf" name="cpf" class="form-control" 
                            value="<%= paciente.getCpf() %>" required 
-                           pattern="\d{11}" maxlength="11" oninput="validateCPF(this)">
-                    <div id="cpfError" class="error-message">O CPF deve conter exatamente 11 dígitos numéricos</div>
+                           pattern="\d{11}" maxlength="11">
+                    <div id="cpfError" class="error-message">O CPF deve conter exatamente 11 dígitos numéricos.</div>
                 </div>
                 
                 <div class="form-group">
@@ -235,6 +329,7 @@
         }
 
         function validateCPF(input) {
+            // Remove all non-digit characters from the input value
             const cpf = input.value.replace(/\D/g, '');
             const errorElement = document.getElementById('cpfError');
             

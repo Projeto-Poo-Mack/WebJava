@@ -25,6 +25,8 @@ public class AuthenticationFilter implements Filter {
         String[] publicUrls = {
             "/index.jsp",
             "/loginAction",
+            "/register.jsp",
+            "/registerAction",
             "/css/",
             "/js/",
             "/images/",

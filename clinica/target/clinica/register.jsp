@@ -82,12 +82,12 @@
 
         <div class="form-group">
             <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" class="form-control" required>
+            <input type="text" id="cpf" name="cpf" class="form-control" required maxlength="14" onkeyup="mascaraCPF(this)" onblur="validarCPF(this)">
         </div>
 
         <div class="form-group">
             <label for="celular">Celular:</label>
-            <input type="tel" id="celular" name="celular" class="form-control" required>
+            <input type="tel" id="celular" name="celular" class="form-control" required maxlength="15" onkeyup="mascaraTelefone(this)">
         </div>
 
         <button type="submit" class="btn btn-primary" style="width: 100%;">Cadastrar</button>
@@ -132,6 +132,59 @@
             window.history.replaceState(null, '', url.toString());
         }
     })();
+
+    // Função para aplicar máscara no CPF
+    function mascaraCPF(campo) {
+        let valor = campo.value.replace(/\D/g, '');
+        if (valor.length > 11) {
+            valor = valor.substring(0, 11);
+        }
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        campo.value = valor;
+    }
+
+    // Função para validar CPF
+    function validarCPF(campo) {
+        let cpf = campo.value.replace(/\D/g, '');
+        if (cpf.length !== 11) {
+            alert('CPF deve conter 11 dígitos');
+            campo.value = '';
+            campo.focus();
+            return false;
+        }
+        return true;
+    }
+
+    // Função para aplicar máscara no telefone
+    function mascaraTelefone(campo) {
+        let valor = campo.value.replace(/\D/g, '');
+        if (valor.length > 11) {
+            valor = valor.substring(0, 11);
+        }
+        valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
+        valor = valor.replace(/(\d)(\d{4})$/, '$1-$2');
+        campo.value = valor;
+    }
+
+    // Adiciona validação no formulário
+    document.querySelector('form').addEventListener('submit', function(e) {
+        let cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+        let celular = document.getElementById('celular').value.replace(/\D/g, '');
+        
+        if (cpf.length !== 11) {
+            e.preventDefault();
+            alert('CPF deve conter 11 dígitos');
+            return false;
+        }
+        
+        if (celular.length !== 11) {
+            e.preventDefault();
+            alert('Celular deve conter 11 dígitos');
+            return false;
+        }
+    });
 </script>
 
 </body>
