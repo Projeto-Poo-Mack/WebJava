@@ -81,7 +81,7 @@ clinica/
 
 1. Clone o repositório:
 ```bash
-git clone [URL_DO_REPOSITÓRIO]
+git clone [https://github.com/Projeto-Poo-Mack/WebJava]
 ```
 
 2. Configure o banco de dados:
@@ -98,7 +98,7 @@ mvn clean install
 
 5. Execute o projeto:
 - Implante o arquivo WAR gerado no Tomcat
-- Acesse através do navegador: `http://localhost:8080/clinica`
+- Acesse através do navegador: `http://localhost:8080/`
 
 ## Validações Implementadas
 
