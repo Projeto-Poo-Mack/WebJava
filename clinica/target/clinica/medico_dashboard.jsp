@@ -8,45 +8,75 @@
     <link rel="stylesheet" href="css/modern.css">
     <style>
         .navbar {
-            padding: 1rem 2rem;
-            background-color: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            padding: 0 32px;
+            font-family: 'Inter', Arial, sans-serif;
+            margin-bottom: 2rem;
         }
         
-        .nav-links {
+        .navbar-container {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            justify-content: space-between;
+            height: 64px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
-        .nav-links a {
-            color: var(--secondary-color);
+        .navbar-logo span {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2d7ff9;
+        }
+        
+        .navbar-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .navbar-links a {
+            color: #1a1a1a;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            transition: all 0.2s ease-in-out;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary-color);
-            background-color: var(--light-color);
-        }
-        
-        .nav-links a.active {
-            color: var(--primary-color);
-            background-color: var(--light-color);
+            font-size: 1rem;
             font-weight: 500;
+            transition: color 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
         }
         
-        .logout-link {
-            margin-left: auto;
-            color: var(--danger-color) !important;
+        .navbar-links a:hover,
+        .navbar-links a.active {
+            color: #2d7ff9;
+            border-bottom: 2px solid #2d7ff9;
         }
         
-        .logout-link:hover {
-            background-color: #fee7eb !important;
+        .navbar-links .logout {
+            color: #fff;
+            background: #2d7ff9;
+            border-radius: 4px;
+            padding: 8px 16px;
+            margin-left: 16px;
+            transition: background 0.2s;
+        }
+        
+        .navbar-links .logout:hover {
+            background: #1a5fcc;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                height: auto;
+                padding: 16px 0;
+            }
+            
+            .navbar-links {
+                flex-direction: column;
+                gap: 16px;
+                width: 100%;
+                align-items: flex-end;
+            }
         }
         
         .content {
@@ -101,34 +131,23 @@
             margin: 0;
             line-height: 1.5;
         }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                padding: 1rem 0;
-            }
-            
-            .logout-link {
-                margin-left: 0;
-                margin-top: 1rem;
-            }
-            
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
     <!-- Menu de Navegação -->
-    <div class="navbar">
-        <div class="nav-links">
-            <a href="${pageContext.request.contextPath}/medico_dashboard" class="active">Home</a>
-            <a href="${pageContext.request.contextPath}/consultarAgenda">Consultar Agenda</a>
-            <a href="${pageContext.request.contextPath}/fichaClinica">Ficha Clínica</a>
-            <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span>Clínica</span>
+            </div>
+            <nav class="navbar-links">
+                <a href="${pageContext.request.contextPath}/medico_dashboard" class="active">Home</a>
+                <a href="${pageContext.request.contextPath}/consultarAgenda">Consultar Agenda</a>
+                <a href="${pageContext.request.contextPath}/fichaClinica">Ficha Clínica</a>
+                <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
     <!-- Conteúdo principal -->
     <div class="content fade-in">
