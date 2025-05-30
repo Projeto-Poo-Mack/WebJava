@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mack.clinica.model.AgendarConsultaDAO;
 import com.mack.clinica.model.AgendarConsultaDAO.Consulta;
+import com.mack.clinica.model.Usuario;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -36,6 +37,10 @@ public class ConsultarAgendaServlet extends HttpServlet {
 
         String realPathBase = request.getServletContext().getRealPath("/");
         AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
+        
+        // Carrega a lista de médicos para o dropdown
+        List<Usuario> medicos = dao.listarMedicos();
+        request.setAttribute("medicos", medicos);
         
         // Se for médico, filtra apenas suas consultas
         if ("medico".equals(userType)) {

@@ -4,45 +4,57 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Meu Cadastro</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Cadastro - Clínica</title>
+    <link rel="stylesheet" href="css/modern.css">
     <style>
         .profile-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .profile-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        
         .profile-info {
             display: grid;
             grid-template-columns: 150px 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
+        
         .profile-label {
-            font-weight: bold;
-            color: #666;
+            font-weight: 500;
+            color: var(--dark-color);
         }
+        
         .profile-value {
-            color: #333;
+            color: var(--secondary-color);
         }
+        
         .edit-button {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--white);
             text-decoration: none;
-            border-radius: 4px;
-            margin-top: 20px;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease-in-out;
         }
+        
         .edit-button:hover {
-            background-color: #0056b3;
+            background-color: var(--primary-dark-color);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-info {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .profile-label {
+                font-weight: 600;
+            }
         }
     </style>
 </head>
@@ -52,42 +64,50 @@
         <div class="nav-links">
             <a href="paciente_dashboard">Home</a>
             <a href="agendarConsulta">Agendamento de Consultas</a>
-            <a href="#">Minha Agenda</a>
+            <a href="minhaAgenda">Minha Agenda</a>
             <a href="meu-cadastro" class="active">Meu Cadastro</a>
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>
     </div>
 
-    <div class="profile-container">
-        <div class="profile-header">
+    <!-- Conteúdo principal -->
+    <div class="content fade-in">
+        <div class="page-header">
             <h1>Meu Cadastro</h1>
+            <p>Visualize e gerencie suas informações pessoais</p>
         </div>
         
         <%
             Paciente paciente = (Paciente) request.getAttribute("paciente");
             if (paciente != null) {
         %>
-            <div class="profile-info">
-                <div class="profile-label">Nome:</div>
-                <div class="profile-value"><%= paciente.getNome() %></div>
+            <div class="profile-container">
+                <div class="profile-info">
+                    <div class="profile-label">Nome:</div>
+                    <div class="profile-value"><%= paciente.getNome() %></div>
+                    
+                    <div class="profile-label">Email:</div>
+                    <div class="profile-value"><%= paciente.getEmail() %></div>
+                    
+                    <div class="profile-label">CPF:</div>
+                    <div class="profile-value"><%= paciente.getCpf() %></div>
+                    
+                    <div class="profile-label">Telefone:</div>
+                    <div class="profile-value"><%= paciente.getCelular().replaceAll("\\.0$", "") %></div>
+                </div>
                 
-                <div class="profile-label">Email:</div>
-                <div class="profile-value"><%= paciente.getEmail() %></div>
-                
-                <div class="profile-label">CPF:</div>
-                <div class="profile-value"><%= paciente.getCpf() %></div>
-                
-                <div class="profile-label">Telefone:</div>
-                <div class="profile-value"><%= paciente.getCelular().replaceAll("\\.0$", "") %></div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="meu-cadastro?action=editar" class="edit-button">Editar Cadastro</a>
+                <div style="text-align: center;">
+                    <a href="meu-cadastro?action=editar" class="edit-button">Editar Cadastro</a>
+                </div>
             </div>
         <%
             } else {
         %>
-            <p>Não foi possível carregar suas informações. Por favor, tente novamente mais tarde.</p>
+            <div class="profile-container">
+                <p style="text-align: center; color: var(--danger-color);">
+                    Não foi possível carregar suas informações. Por favor, tente novamente mais tarde.
+                </p>
+            </div>
         <%
             }
         %>

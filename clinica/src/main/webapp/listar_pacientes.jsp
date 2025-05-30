@@ -21,6 +21,10 @@
             min-width: 800px;
         }
         
+        .table th, .table td {
+            text-align: center;
+        }
+        
         .table th {
             background-color: var(--light-color);
             color: var(--dark-color);

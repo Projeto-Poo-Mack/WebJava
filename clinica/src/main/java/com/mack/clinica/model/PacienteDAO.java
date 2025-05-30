@@ -64,13 +64,20 @@ public class PacienteDAO {
     public List<Usuario> listarPacientes(String realPathBase) {
         List<Usuario> pacientes = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "SELECT id, nome FROM usuarios WHERE tipo = 'paciente'";
+            String sql = "SELECT id, nome, email, cpf, celular FROM usuarios WHERE tipo = 'paciente'";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id"));
                 u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setCpf(rs.getString("cpf"));
+                String celular = rs.getString("celular");
+                if (celular != null && celular.endsWith(".0")) {
+                    celular = celular.substring(0, celular.length() - 2);
+                }
+                u.setCelular(celular);
                 pacientes.add(u);
             }
         } catch (SQLException e) {

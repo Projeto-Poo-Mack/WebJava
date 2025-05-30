@@ -125,7 +125,8 @@
             <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" id="cpf" name="cpf" class="form-control" required 
-                       pattern="\d{11}" title="Digite apenas números (11 dígitos)">
+                       pattern="\d{11}" maxlength="11"
+                       title="Digite apenas números (11 dígitos)" placeholder="Somente números, ex: 12345678900">
             </div>
 
             <div class="form-group">
@@ -146,10 +147,9 @@
     </div>
 
     <script>
-        // Máscara para CPF
+        // Remover máscara de CPF, permitir apenas números
         document.getElementById('cpf').addEventListener('input', function (e) {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
-            e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+            this.value = this.value.replace(/\D/g, '').slice(0, 11);
         });
 
         // Máscara para celular

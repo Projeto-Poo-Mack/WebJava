@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.mack.clinica.model.AgendarConsultaDAO.Consulta" %>
 <%@ page import="com.mack.clinica.util.DateFormatter" %>
+<%@ page import="com.mack.clinica.model.Usuario" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -160,8 +161,20 @@
                 </div>
                 <div class="filter-group">
                     <label for="medico">Médico:</label>
-                    <input type="text" id="medico" name="medico" class="form-control"
-                           value="${filtro_medico}" placeholder="Nome do médico">
+                    <select id="medico" name="medico" class="form-control">
+                        <option value="">Todos os médicos</option>
+                        <%
+                            List<Usuario> medicos = (List<Usuario>) request.getAttribute("medicos");
+                            if (medicos != null) {
+                                for (Usuario medico : medicos) {
+                                    String selected = medico.getNome().equals(request.getParameter("medico")) ? "selected" : "";
+                        %>
+                                    <option value="<%= medico.getNome() %>" <%= selected %>><%= medico.getNome() %></option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
                 </div>
                 <div class="filter-group">
                     <label for="data">Data:</label>
