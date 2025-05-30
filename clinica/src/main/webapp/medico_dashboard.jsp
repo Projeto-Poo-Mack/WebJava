@@ -144,6 +144,7 @@
                 <a href="${pageContext.request.contextPath}/medico_dashboard" class="active">Home</a>
                 <a href="${pageContext.request.contextPath}/consultarAgenda">Consultar Agenda</a>
                 <a href="${pageContext.request.contextPath}/fichaClinica">Ficha Clínica</a>
+                <a href="${pageContext.request.contextPath}/minhasConsultas">Minhas Consultas</a>
                 <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
             </nav>
         </div>
@@ -169,6 +170,11 @@
             <a href="${pageContext.request.contextPath}/fichaClinica" class="dashboard-item">
                 <h3>Ficha Clínica</h3>
                 <p>Registre e consulte as fichas clínicas dos pacientes</p>
+            </a>
+
+            <a href="${pageContext.request.contextPath}/minhasConsultas" class="dashboard-item">
+                <h3>Minhas Consultas</h3>
+                <p>Visualize todas as suas consultas registradas</p>
             </a>
         </div>
     </div>

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.mack.clinica.model.Medico" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -188,17 +190,13 @@
             <p>Preencha os dados da consulta médica</p>
         </div>
         
-        <form method="post" action="fichaClinica" class="form-container">
+        <form method="post" action="${pageContext.request.contextPath}/fichaClinica" class="form-container">
             <!-- Informações da Consulta -->
             <div class="consultation-info">
                 <h2>Informações da Consulta</h2>
                 <div class="form-group">
                     <label for="paciente-nome">Nome do Paciente:</label>
                     <input type="text" id="paciente-nome" name="pacienteNome" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="medico-nome">Nome do Médico:</label>
-                    <input type="text" id="medico-nome" name="medicoNome" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="data-consulta">Data da Consulta:</label>

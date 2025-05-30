@@ -13,12 +13,14 @@ com\mack\clinica\controller\FichaClinicaServlet.class
 com\mack\clinica\model\MedicoDAO.class
 com\mack\clinica\controller\AdminDashboardServlet.class
 com\mack\clinica\controller\PacienteDashboardServlet.class
+com\mack\clinica\controller\MinhasConsultasServlet.class
 com\mack\clinica\util\DateFormatter.class
 com\mack\clinica\controller\ConsultarAgendaServlet.class
 com\mack\clinica\controller\LogoutServlet.class
 com\mack\clinica\controller\LoginActionServlet.class
 com\mack\clinica\filter\AuthenticationFilter.class
 com\mack\clinica\controller\CancelarConsultaServlet.class
+com\mack\clinica\controller\MinhasConsultasServlet$FichaClinica.class
 com\mack\clinica\controller\RegisterActionServlet.class
 com\mack\clinica\model\AgendarConsultaDAO$Consulta.class
 com\mack\clinica\controller\AgendarConsultaServlet.class
