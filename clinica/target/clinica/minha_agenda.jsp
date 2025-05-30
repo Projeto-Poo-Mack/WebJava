@@ -24,6 +24,10 @@
             margin-bottom: 0;
         }
         
+        .appointments-table th, .appointments-table td {
+            text-align: center;
+        }
+        
         .appointments-table th {
             background-color: var(--light-color);
             color: var(--dark-color);
