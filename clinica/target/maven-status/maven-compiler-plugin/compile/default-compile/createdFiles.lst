@@ -24,5 +24,6 @@ com\mack\clinica\controller\MinhasConsultasServlet$FichaClinica.class
 com\mack\clinica\controller\RegisterActionServlet.class
 com\mack\clinica\model\AgendarConsultaDAO$Consulta.class
 com\mack\clinica\controller\AgendarConsultaServlet.class
+com\mack\clinica\controller\ExcluirFichaServlet.class
 com\mack\clinica\controller\MeuCadastroServlet.class
 com\mack\clinica\model\Usuario.class

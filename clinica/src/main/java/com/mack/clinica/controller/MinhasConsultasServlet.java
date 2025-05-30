@@ -29,17 +29,40 @@ public class MinhasConsultasServlet extends HttpServlet {
         String userType = (String) session.getAttribute("tipo");
         String userName = (String) session.getAttribute("nome");
         
+        System.out.println("DEBUG: Iniciando busca de fichas clínicas");
         System.out.println("DEBUG: Tipo de usuário: " + userType);
         System.out.println("DEBUG: Nome do usuário: " + userName);
         
         if (userType == null || !userType.equals("medico")) {
+            System.out.println("DEBUG: Usuário não autorizado");
             response.sendRedirect("index.jsp");
             return;
         }
 
         try {
             String realPath = request.getServletContext().getRealPath("/");
+            System.out.println("DEBUG: Real Path: " + realPath);
             Connection conn = DatabaseConnection.getConnection(realPath);
+            System.out.println("DEBUG: Conexão com banco de dados estabelecida");
+            
+            // Criar a tabela se não existir
+            String createTableSQL = "CREATE TABLE IF NOT EXISTS ficha_clinica (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "paciente_nome TEXT NOT NULL, " +
+                "medico_nome TEXT NOT NULL, " +
+                "data_consulta TEXT NOT NULL, " +
+                "queixa_principal TEXT, " +
+                "historia_doenca TEXT, " +
+                "exame_fisico TEXT, " +
+                "diagnostico TEXT, " +
+                "prescricao TEXT, " +
+                "observacoes TEXT, " +
+                "data_registro TEXT NOT NULL)";
+            
+            try (PreparedStatement createStmt = conn.prepareStatement(createTableSQL)) {
+                createStmt.execute();
+                System.out.println("DEBUG: Tabela ficha_clinica verificada/criada com sucesso");
+            }
             
             String sql = "SELECT * FROM ficha_clinica WHERE medico_nome = ? ORDER BY data_registro DESC";
             System.out.println("DEBUG: SQL Query: " + sql);
@@ -51,6 +74,7 @@ public class MinhasConsultasServlet extends HttpServlet {
             ResultSet rs = stmt.executeQuery();
             List<FichaClinica> fichas = new ArrayList<>();
             
+            System.out.println("DEBUG: Iniciando leitura das fichas");
             while (rs.next()) {
                 FichaClinica ficha = new FichaClinica();
                 ficha.setId(rs.getInt("id"));
@@ -67,7 +91,9 @@ public class MinhasConsultasServlet extends HttpServlet {
                 
                 System.out.println("DEBUG: Ficha encontrada - ID: " + ficha.getId() + 
                                  ", Paciente: " + ficha.getPacienteNome() + 
-                                 ", Médico: " + ficha.getMedicoNome());
+                                 ", Médico: " + ficha.getMedicoNome() +
+                                 ", Data Consulta: " + ficha.getDataConsulta() +
+                                 ", Data Registro: " + ficha.getDataRegistro());
                 
                 fichas.add(ficha);
             }
@@ -77,11 +103,13 @@ public class MinhasConsultasServlet extends HttpServlet {
             rs.close();
             stmt.close();
             conn.close();
+            System.out.println("DEBUG: Conexão com banco de dados fechada");
             
             request.setAttribute("fichas", fichas);
             
             String success = request.getParameter("success");
             if (success != null && success.equals("true")) {
+                System.out.println("DEBUG: Parâmetro success=true encontrado");
                 request.setAttribute("successMessage", "Ficha clínica salva com sucesso!");
             }
             

@@ -190,6 +190,18 @@
             <p>Preencha os dados da consulta médica</p>
         </div>
         
+        <% if (request.getParameter("error") != null) { %>
+            <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                Erro ao salvar a ficha clínica. Por favor, tente novamente.
+            </div>
+        <% } %>
+        
+        <% if (request.getParameter("success") != null) { %>
+            <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                Ficha clínica salva com sucesso!
+            </div>
+        <% } %>
+        
         <form method="post" action="${pageContext.request.contextPath}/fichaClinica" class="form-container">
             <!-- Informações da Consulta -->
             <div class="consultation-info">
