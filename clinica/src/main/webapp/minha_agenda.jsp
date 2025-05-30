@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.mack.clinica.model.AgendarConsultaDAO.Consulta" %>
+<%@ page import="com.mack.clinica.util.DateFormatter" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -92,7 +93,7 @@
                             for (Consulta consulta : consultas) {
                     %>
                         <tr>
-                            <td><%= consulta.getDataHora() %></td>
+                            <td><%= DateFormatter.formatDateTime(consulta.getDataHora()) %></td>
                             <td><%= consulta.getMedicoNome() %></td>
                             <td>
                                 <span class="status-badge status-<%= consulta.getStatus().toLowerCase() %>">

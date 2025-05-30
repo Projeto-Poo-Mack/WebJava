@@ -3,6 +3,7 @@ com\mack\clinica\model\Paciente.class
 com\mack\clinica\controller\AdminDashboardServlet.class
 com\mack\clinica\controller\LoginServlet.class
 com\mack\clinica\controller\PacienteDashboardServlet.class
+com\mack\clinica\util\DateFormatter.class
 com\mack\clinica\controller\ConsultarAgendaServlet.class
 com\mack\clinica\controller\LogoutServlet.class
 com\mack\clinica\controller\PacienteCrudServlet.class
