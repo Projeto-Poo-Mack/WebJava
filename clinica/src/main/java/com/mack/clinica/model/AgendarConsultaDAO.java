@@ -199,4 +199,21 @@ public class AgendarConsultaDAO {
         }
         return consultas;
     }
+
+    public boolean cancelarConsulta(int consultaId, int pacienteId) {
+        String sql = "UPDATE consultas SET status = 'cancelada' WHERE id = ? AND paciente_id = ? AND status = 'agendada'";
+        
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, consultaId);
+            stmt.setInt(2, pacienteId);
+            
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

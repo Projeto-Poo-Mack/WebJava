@@ -58,6 +58,34 @@
             color: #666;
             font-size: 1.1em;
         }
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .cancel-button:hover {
+            background-color: #c82333;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +104,25 @@
     <div class="content">
         <h1>Minha Agenda</h1>
         
+        <%
+            String msg = request.getParameter("msg");
+            if (msg != null) {
+                if ("cancelada".equals(msg)) {
+        %>
+                    <div class="alert alert-success">
+                        Consulta cancelada com sucesso!
+                    </div>
+        <%
+                } else if ("erro".equals(msg)) {
+        %>
+                    <div class="alert alert-error">
+                        Erro ao cancelar a consulta. Por favor, tente novamente.
+                    </div>
+        <%
+                }
+            }
+        %>
+        
         <div class="appointments-container">
             <table class="appointments-table">
                 <thead>
@@ -84,6 +131,7 @@
                         <th>Médico</th>
                         <th>Status</th>
                         <th>Observações</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,13 +149,24 @@
                                 </span>
                             </td>
                             <td><%= consulta.getObservacoes() != null ? consulta.getObservacoes() : "" %></td>
+                            <td>
+                                <% if ("agendada".equalsIgnoreCase(consulta.getStatus())) { %>
+                                    <form action="cancelarConsulta" method="post" style="display: inline;">
+                                        <input type="hidden" name="consultaId" value="<%= consulta.getId() %>">
+                                        <button type="submit" class="button cancel-button" 
+                                                onclick="return confirm('Tem certeza que deseja cancelar esta consulta?')">
+                                            Cancelar
+                                        </button>
+                                    </form>
+                                <% } %>
+                            </td>
                         </tr>
                     <%
                             }
                         } else {
                     %>
                         <tr>
-                            <td colspan="4" class="empty-message">
+                            <td colspan="5" class="empty-message">
                                 Você não possui consultas agendadas.
                             </td>
                         </tr>
