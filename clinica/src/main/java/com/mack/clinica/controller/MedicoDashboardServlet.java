@@ -26,6 +26,22 @@ public class MedicoDashboardServlet extends HttpServlet {
             return;
         }
 
+        // Adiciona o tipo de usuário como atributo para o JSP
+        request.setAttribute("userType", userType);
+        
+        // Adiciona o nome do médico se disponível
+        String medicoNome = (String) session.getAttribute("nome");
+        if (medicoNome != null) {
+            request.setAttribute("medicoNome", medicoNome);
+        }
+
         request.getRequestDispatcher("/medico_dashboard.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Redireciona para o doGet para manter a consistência
+        doGet(request, response);
     }
 } 

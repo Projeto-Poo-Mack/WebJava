@@ -60,8 +60,13 @@
     <!-- Menu de Navegação -->
     <div class="navbar">
         <div class="nav-links">
-            <a href="admin_dashboard">Home</a>
-            <a href="consultarAgenda" class="active">Consultar Agenda</a>
+            <% 
+            String userType = (String) session.getAttribute("tipo");
+            String dashboardLink = "admin".equals(userType) ? "admin_dashboard" : "medico_dashboard";
+            %>
+            <a href="${pageContext.request.contextPath}/<%= dashboardLink %>">Home</a>
+            <a href="${pageContext.request.contextPath}/consultarAgenda" class="active">Consultar Agenda</a>
+            <a href="${pageContext.request.contextPath}/fichaClinica">Ficha Clínica</a>
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>
     </div>

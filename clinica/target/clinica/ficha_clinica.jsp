@@ -66,9 +66,13 @@
     <!-- Menu de Navegação -->
     <div class="navbar">
         <div class="nav-links">
-            <a href="admin_dashboard">Home</a>
-            <a href="consultarAgenda">Consultar Agenda</a>
-            <a href="fichaClinica" class="active">Ficha Clínica</a>
+            <% 
+            String userType = (String) session.getAttribute("tipo");
+            String dashboardLink = "admin".equals(userType) ? "admin_dashboard" : "medico_dashboard";
+            %>
+            <a href="${pageContext.request.contextPath}/<%= dashboardLink %>">Home</a>
+            <a href="${pageContext.request.contextPath}/consultarAgenda">Consultar Agenda</a>
+            <a href="${pageContext.request.contextPath}/fichaClinica" class="active">Ficha Clínica</a>
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>
     </div>
@@ -81,9 +85,18 @@
             <!-- Informações da Consulta -->
             <div class="consultation-info">
                 <h2>Informações da Consulta</h2>
-                <p><strong>Paciente:</strong> <span id="paciente-nome">[Nome do Paciente]</span></p>
-                <p><strong>Médico:</strong> <span id="medico-nome">[Nome do Médico]</span></p>
-                <p><strong>Data:</strong> <span id="data-consulta">[Data da Consulta]</span></p>
+                <div class="form-group">
+                    <label for="paciente-nome">Nome do Paciente:</label>
+                    <input type="text" id="paciente-nome" name="pacienteNome" required>
+                </div>
+                <div class="form-group">
+                    <label for="medico-nome">Nome do Médico:</label>
+                    <input type="text" id="medico-nome" name="medicoNome" required>
+                </div>
+                <div class="form-group">
+                    <label for="data-consulta">Data da Consulta:</label>
+                    <input type="datetime-local" id="data-consulta" name="dataConsulta" required>
+                </div>
             </div>
 
             <!-- Queixa Principal -->
