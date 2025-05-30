@@ -4,39 +4,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Login - Clínica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/modern.css">
     <style>
+        .login-container {
+            max-width: 400px;
+            margin: 5rem auto;
+            padding: 2rem;
+        }
+        
+        .login-container h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+        
         .register-link {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 1.5rem;
         }
+        
         .register-link a {
-            color: #0066cc;
+            color: var(--primary-color);
             text-decoration: none;
+            font-weight: 500;
         }
+        
         .register-link a:hover {
             text-decoration: underline;
         }
+        
         .success-message {
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1rem;
+        }
+        
+        #msgErro {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
 
-<div class="login-container">
+<div class="login-container card fade-in">
     <h2>Login</h2>
     <form method="post" action="loginAction">
-        <label for="email">E-mail:</label>
-        <input type="text" id="email" name="email" required>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" class="form-control" required>
+        </div>
 
-        <button type="submit">Entrar</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
     </form>
 
     <div class="register-link">
@@ -49,7 +91,7 @@
         
         if ("login".equals(erro)) {
     %>
-        <p id="msgErro" style="color: red; font-weight: bold; margin-top: 10px;">
+        <p id="msgErro">
             E-mail ou senha inválidos. Tente novamente.
         </p>
     <%

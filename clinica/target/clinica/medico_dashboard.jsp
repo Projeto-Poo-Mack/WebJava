@@ -3,35 +3,119 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Médico</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Médico - Clínica</title>
+    <link rel="stylesheet" href="css/modern.css">
     <style>
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .dashboard-item {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s;
+        .navbar {
+            padding: 1rem 2rem;
+            background-color: var(--white);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: var(--light-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            background-color: var(--light-color);
+            font-weight: 500;
+        }
+        
+        .logout-link {
+            margin-left: auto;
+            color: var(--danger-color) !important;
+        }
+        
+        .logout-link:hover {
+            background-color: #fee7eb !important;
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .dashboard-welcome {
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .dashboard-welcome h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0;
+        }
+        
+        .dashboard-item {
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
         .dashboard-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+        
         .dashboard-item h3 {
-            margin: 0 0 10px 0;
-            color: #333;
+            color: var(--primary-color);
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
         }
+        
         .dashboard-item p {
+            color: var(--secondary-color);
             margin: 0;
-            color: #666;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            .logout-link {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -47,13 +131,15 @@
     </div>
 
     <!-- Conteúdo principal -->
-    <div class="content">
-        <h1>Painel do Médico</h1>
-        <% if (request.getAttribute("medicoNome") != null) { %>
-            <p>Bem-vindo, <%= request.getAttribute("medicoNome") %>!</p>
-        <% } else { %>
-            <p>Bem-vindo ao seu painel, onde você poderá gerenciar suas consultas e fichas clínicas.</p>
-        <% } %>
+    <div class="content fade-in">
+        <div class="dashboard-welcome">
+            <h1>Painel do Médico</h1>
+            <% if (request.getAttribute("medicoNome") != null) { %>
+                <p>Bem-vindo, Dr(a). <%= request.getAttribute("medicoNome") %>!</p>
+            <% } else { %>
+                <p>Bem-vindo ao seu painel, onde você poderá gerenciar suas consultas e fichas clínicas.</p>
+            <% } %>
+        </div>
 
         <div class="dashboard-grid">
             <a href="${pageContext.request.contextPath}/consultarAgenda" class="dashboard-item">
