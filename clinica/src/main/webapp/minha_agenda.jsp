@@ -6,85 +6,136 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Minha Agenda</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Agenda - Clínica</title>
+    <link rel="stylesheet" href="css/modern.css">
     <style>
         .appointments-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow-x: auto;
         }
+        
         .appointments-table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            min-width: 800px;
+            margin-bottom: 0;
         }
-        .appointments-table th,
-        .appointments-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+        
         .appointments-table th {
-            background-color: #f8f9fa;
-            font-weight: bold;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.025em;
         }
-        .appointments-table tr:hover {
-            background-color: #f5f5f5;
+        
+        .appointments-table td {
+            vertical-align: middle;
         }
+        
+        .appointments-table tbody tr:hover {
+            background-color: var(--light-color);
+        }
+        
         .status-badge {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.9em;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
             font-weight: 500;
         }
+        
         .status-agendada {
-            background-color: #e3f2fd;
-            color: #1976d2;
+            background-color: #e0f7ec;
+            color: #00864e;
         }
+        
         .status-realizada {
-            background-color: #e8f5e9;
-            color: #2e7d32;
+            background-color: #e3ebf6;
+            color: #12263f;
         }
+        
         .status-cancelada {
-            background-color: #ffebee;
-            color: #c62828;
+            background-color: #fee7eb;
+            color: #c9244b;
         }
+        
         .empty-message {
             text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 1.1em;
+            padding: 3rem;
+            color: var(--secondary-color);
+            font-size: 1.125rem;
         }
-        .cancel-button {
-            background-color: #dc3545;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-        .cancel-button:hover {
-            background-color: #c82333;
-        }
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
+        
+        .btn-cancel {
+            background-color: var(--danger-color);
+            color: var(--white);
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
             font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
         }
+        
+        .btn-cancel:hover {
+            background-color: #d32f2f;
+            transform: translateY(-1px);
+        }
+        
+        .alert {
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .alert::before {
+            content: '';
+            width: 1.25rem;
+            height: 1.25rem;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
         .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: #e0f7ec;
+            color: #00864e;
         }
+        
+        .alert-success::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300864e'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+        }
+        
         .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #fee7eb;
+            color: #c9244b;
+        }
+        
+        .alert-error::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c9244b'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+        }
+        
+        .page-header {
+            background-color: var(--white);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .page-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -101,8 +152,11 @@
     </div>
 
     <!-- Conteúdo principal -->
-    <div class="content">
-        <h1>Minha Agenda</h1>
+    <div class="content fade-in">
+        <div class="page-header">
+            <h1>Minha Agenda</h1>
+            <p>Visualize e gerencie suas consultas agendadas</p>
+        </div>
         
         <%
             String msg = request.getParameter("msg");
@@ -124,7 +178,7 @@
         %>
         
         <div class="appointments-container">
-            <table class="appointments-table">
+            <table class="appointments-table table">
                 <thead>
                     <tr>
                         <th>Data e Hora</th>
@@ -153,7 +207,7 @@
                                 <% if ("agendada".equalsIgnoreCase(consulta.getStatus())) { %>
                                     <form action="cancelarConsulta" method="post" style="display: inline;">
                                         <input type="hidden" name="consultaId" value="<%= consulta.getId() %>">
-                                        <button type="submit" class="button cancel-button" 
+                                        <button type="submit" class="btn-cancel" 
                                                 onclick="return confirm('Tem certeza que deseja cancelar esta consulta?')">
                                             Cancelar
                                         </button>
@@ -167,7 +221,10 @@
                     %>
                         <tr>
                             <td colspan="5" class="empty-message">
-                                Você não possui consultas agendadas.
+                                <div>
+                                    <p>Você não possui consultas agendadas.</p>
+                                    <a href="agendarConsulta" class="btn btn-primary mt-3">Agendar Consulta</a>
+                                </div>
                             </td>
                         </tr>
                     <%
