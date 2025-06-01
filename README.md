@@ -1,5 +1,11 @@
 # Sistema de Gestão de Clínica Médica
 
+Participantes
+
+Gabriel Santoro Silveira
+Gabriel Marinho Rosa
+Fernando Kenzo Hirata
+
 ## Descrição
 Este é um sistema web desenvolvido em Java para gerenciamento de clínica médica, permitindo o agendamento de consultas, gestão de pacientes e médicos, e acompanhamento de prontuários.
 
