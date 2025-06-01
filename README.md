@@ -1,6 +1,6 @@
 # Sistema de Gestão de Clínica Médica
 
-Participantes
+## Participantes
 
 Gabriel Santoro Silveira
 Gabriel Marinho Rosa
